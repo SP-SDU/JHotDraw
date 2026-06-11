@@ -111,11 +111,13 @@ As a `drawing user`, I want `snap-to-grid and constrained movement`, so that `I 
 
 ### 2.5 Acceptance Criteria
 
-- [x] Given `point 14,13 and grid 10 by 5`, when `constrainPoint` runs, then `point becomes 10,15`.
-- [x] Given `rectangle 13,26,12,8 and grid 10 by 10`, when `constrainRectangle` runs, then `rectangle moves to 10,22 without resizing`.
-- [x] Given `point 13,26 and grid 10 by 10`, when `translatePoint EAST` runs, then `point becomes 20,26`.
-- [x] Given `angle 0.70 and theta pi/4`, when `constrainAngle` runs, then `angle becomes pi/4`.
-- [x] Given `null rotation direction`, when `rotateAngle` runs, then `IllegalArgumentException` is captured.
+| ID | Given | When | Then |
+| --- | --- | --- | --- |
+| AC-1 | `point 14,13 and grid 10 by 5` | `constrainPoint` runs | `point becomes 10,15` |
+| AC-2 | `rectangle 13,26,12,8 and grid 10 by 10` | `constrainRectangle` runs | `rectangle moves to 10,22 without resizing` |
+| AC-3 | `point 13,26 and grid 10 by 10` | `translatePoint EAST` runs | `point becomes 20,26` |
+| AC-4 | `angle 0.70 and theta pi/4` | `constrainAngle` runs | `angle becomes pi/4` |
+| AC-5 | `null rotation direction` | `rotateAngle` runs | `IllegalArgumentException` is captured |
 
 Lab review: ChangeReqLab met with selected existing JHotDraw feature, user story, requirements, and acceptance criteria. KISS scope excludes new user-facing behavior.
 
@@ -657,22 +659,3 @@ See `evidence/call-tree.md`, `evidence/impact-analysis-table.md`, `evidence/evid
 | Fowler, M. `Continuous Integration`, 2006 | CI rationale. |
 | Fowler, M. `Refactoring`, catalog | Extract Method pattern. |
 | Martin, R. C. `Clean Code`, 2008 | Clean-code naming, small methods, clear responsibility. |
-
-### 12.6 Final Quality Checklist
-
-- [x] Every lab portfolio requirement has section.
-- [x] All known class names are exact.
-- [x] All known package names are exact.
-- [x] Code snippets are readable.
-- [x] No screenshot used as primary evidence.
-- [x] Call tree included.
-- [x] Concept location table included.
-- [x] Impact analysis package table included.
-- [x] Refactoring smell and pattern explained.
-- [x] SOLID and Clean Architecture tied to JHotDraw.
-- [x] Unit tests documented.
-- [x] BDD Given-When-Then scenarios documented.
-- [x] PDF generated from Markdown after content completion.
-- [x] Lab coverage matrix included.
-- [x] Evidence index included.
-- [ ] Remote CI URL captured after PR or push-triggered run.
