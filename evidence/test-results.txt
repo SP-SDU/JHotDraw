@@ -1,0 +1,75 @@
+Command: git switch -c feature/snap-to-grid-portfolio
+Output:
+Switched to a new branch 'feature/snap-to-grid-portfolio'
+
+Command: java -version
+Output:
+openjdk version "23.0.2" 2025-01-21
+OpenJDK Runtime Environment Temurin-23.0.2+7 (build 23.0.2+7)
+OpenJDK 64-Bit Server VM Temurin-23.0.2+7 (build 23.0.2+7, mixed mode, sharing)
+
+Command: mvn -version
+Output:
+Apache Maven 3.9.9
+Java version: 23.0.2, vendor: Eclipse Adoptium
+OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
+
+Command: mvn clean install -DskipTests
+Output summary:
+[INFO] Reactor Summary for jhotdraw 9.1-SNAPSHOT:
+[INFO] jhotdraw ........................................... SUCCESS
+[INFO] jhotdraw-api ....................................... SUCCESS
+[INFO] jhotdraw-utils ..................................... SUCCESS
+[INFO] jhotdraw-xml ....................................... SUCCESS
+[INFO] jhotdraw-datatransfer .............................. SUCCESS
+[INFO] jhotdraw-actions ................................... SUCCESS
+[INFO] jhotdraw-core ...................................... SUCCESS
+[INFO] jhotdraw-gui ....................................... SUCCESS
+[INFO] jhotdraw-app ....................................... SUCCESS
+[INFO] jhotdraw-samples ................................... SUCCESS
+[INFO] jhotdraw-samples-misc .............................. SUCCESS
+[INFO] jhotdraw-samples-mini .............................. SUCCESS
+[INFO] BUILD SUCCESS
+[INFO] Total time: 12.362 s
+
+Command: mvn exec:java "-Dexec.mainClass=org.jhotdraw.samples.svg.Main"
+Workdir: jhotdraw-samples/jhotdraw-samples-misc
+Output summary:
+[INFO] --- exec:3.1.0:java (default-cli) @ jhotdraw-samples-misc ---
+Warning ResourceBundleUtil[org.jhotdraw.app.Labels].getIconProperty "application.about.icon" not found.
+Warning ResourceBundleUtil[org.jhotdraw.draw.Labels].getIconProperty "edit.moveConstrainedEast.icon" not found.
+Warning ResourceBundleUtil[org.jhotdraw.draw.Labels].getIconProperty "edit.moveConstrainedWest.icon" not found.
+Warning ResourceBundleUtil[org.jhotdraw.draw.Labels].getIconProperty "edit.moveConstrainedNorth.icon" not found.
+Warning ResourceBundleUtil[org.jhotdraw.draw.Labels].getIconProperty "edit.moveConstrainedSouth.icon" not found.
+Process exceeded 20000 ms timeout because Swing GUI stays open. Startup reached action/resource initialization, which is textual proof that SVG application launched.
+
+Command: mvn -pl jhotdraw-core test -Dtest=GridConstrainerTest
+Output summary:
+[INFO] Running org.jhotdraw.draw.GridConstrainerTest
+GivenDirectionEast whenTranslatePoint thenMovesOneGridCellEast ... passed
+GivenNullRotationDirection whenRotateAngle thenThrowsIllegalArgumentException ... passed
+GivenPointNearGrid whenConstrainPoint thenSnapsToNearestGrid ... passed
+GivenRectangleNearGrid whenConstrainRectangle thenMovesNearestEdgeToGrid ... passed
+GivenTheta whenConstrainAngle thenRoundsToNearestStep ... passed
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+
+Command: mvn test
+Output summary:
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0 -- org.jhotdraw.geom.BezierPathNGTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0 -- jhotdraw-core TestSuite
+[INFO] Reactor Summary for jhotdraw 9.1-SNAPSHOT:
+[INFO] jhotdraw ........................................... SUCCESS
+[INFO] jhotdraw-api ....................................... SUCCESS
+[INFO] jhotdraw-utils ..................................... SUCCESS
+[INFO] jhotdraw-xml ....................................... SUCCESS
+[INFO] jhotdraw-datatransfer .............................. SUCCESS
+[INFO] jhotdraw-actions ................................... SUCCESS
+[INFO] jhotdraw-core ...................................... SUCCESS
+[INFO] jhotdraw-gui ....................................... SUCCESS
+[INFO] jhotdraw-app ....................................... SUCCESS
+[INFO] jhotdraw-samples ................................... SUCCESS
+[INFO] jhotdraw-samples-misc .............................. SUCCESS
+[INFO] jhotdraw-samples-mini .............................. SUCCESS
+[INFO] BUILD SUCCESS
+[INFO] Total time: 4.503 s

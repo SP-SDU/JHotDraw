@@ -141,9 +141,13 @@ public class GridConstrainer extends AbstractConstrainer {
      */
     @Override
     public Point2D.Double constrainPoint(Point2D.Double p, Figure... figure) {
-        p.x = Math.round(p.x / width) * width;
-        p.y = Math.round(p.y / height) * height;
+        p.x = constrainCoordinate(p.x, width);
+        p.y = constrainCoordinate(p.y, height);
         return p;
+    }
+
+    private double constrainCoordinate(double value, double gridSize) {
+        return Math.round(value / gridSize) * gridSize;
     }
 
     /**
