@@ -9,7 +9,7 @@ Date: 2026-06-11
 
 ### 1.1 Purpose
 
-This portfolio follows existing JHotDraw feature `Snap-to-grid / constrained movement` from change request through concept location, impact analysis, refactoring, actualization, verification, and BDD testing.
+This portfolio follows existing JHotDraw feature `Snap-to-grid / constrained movement` through Rajlich-style software maintenance phases: change request, concept location, impact analysis, actualization, refactoring, verification, and BDD testing.
 
 Selected feature connects directly to drawing precision. User enables or uses grid constraints, then JHotDraw aligns points, rectangles, movements, and rotations through `org.jhotdraw.draw.GridConstrainer`.
 
@@ -21,7 +21,7 @@ Selected feature connects directly to drawing precision. User enables or uses gr
 | Fork URL | `https://github.com/SP-SDU/JHotDraw.git` |
 | Upstream URL | `https://github.com/sweat-tek/JHotDraw.git` |
 | Feature branch | `feature/snap-to-grid-portfolio` |
-| JDK version | OpenJDK `23.0.2`, TODO: install/use JDK11 if strict lab environment required |
+| JDK version | OpenJDK `23.0.2` locally; CI workflow uses JDK11 as lab target |
 | Maven version | Apache Maven `3.9.9` |
 | Build command | `mvn clean install -DskipTests` |
 | Run command | `mvn exec:java "-Dexec.mainClass=org.jhotdraw.samples.svg.Main"` in `jhotdraw-samples/jhotdraw-samples-misc` |
@@ -171,7 +171,7 @@ jobs:
 | Build command | `mvn -B clean install -DskipTests` |
 | Test command | `mvn -B test` |
 | Local equivalent result | `mvn test` succeeded with all modules green. |
-| Remote workflow result | TODO: push branch and record GitHub Actions URL after review. |
+| Remote workflow result | No run found by `gh run list --branch feature/snap-to-grid-portfolio --limit 5`; local equivalent passed. |
 
 Lab review: CILab met by adding Maven GitHub Actions workflow and local verification commands. KISS uses one workflow and no repository secrets because current dependency resolution works without `.maven-settings.xml` locally.
 
@@ -181,9 +181,11 @@ Lab review: CILab met by adding Maven GitHub Actions workflow and local verifica
 
 ### 4.1 Method
 
-Concept location used static search and runtime launch of the SVG sample. Search terms included `GridConstrainer`, `getConstrainer`, `setConstrainerVisible`, `ToggleGridAction`, and `MoveConstrainedAction`. Runtime action is SVG app startup with grid-related actions loaded.
+Concept location used static search, call-chain inspection, and runtime launch of the SVG sample. Search terms included `GridConstrainer`, `getConstrainer`, `setConstrainerVisible`, `ToggleGridAction`, and `MoveConstrainedAction`. Runtime action is SVG app startup with grid-related actions loaded.
 
-TODO: Add IDE debugger screenshot or stack trace if instructor requires dynamic debugger artifact.
+Concept Triangle framing: concept name is `snap-to-grid / constrained movement`, observable behavior is grid-aligned coordinates, and code locus is `org.jhotdraw.draw.GridConstrainer`.
+
+No IDE debugger screenshot is included. Instead, portfolio uses exact classes, methods, source paths, and local runtime command evidence. This is weaker than a debugger screenshot, but still gives reproducible concept-location evidence.
 
 ### 4.2 Triggering User Action
 
@@ -259,7 +261,7 @@ Lab review: Call tree met using small static/runtime path. KISS avoids tracing u
 
 ### 6.1 Impact Analysis Method
 
-Starting point was `GridConstrainer`. Neighbors were classified using `CHANGED`, `PROPAGATES`, `UNCHANGED`, and `NEXT`. Because public method signatures stayed unchanged, only implementation and tests needed modification.
+Starting point was `GridConstrainer`. Neighbors were classified using Rajlich-style impact marks: `CHANGED`, `NEXT`, `PROPAGATES`, `UNCHANGED`, and `BLANK`. Because public method signatures stayed unchanged, only implementation and tests needed modification.
 
 ### 6.2 Impact Diagram
 
@@ -288,6 +290,7 @@ flowchart TD
 | `AbstractTool` | `org.jhotdraw.draw.tool` | UNCHANGED | Delegation unchanged. |
 | `ViewToolBar` | `org.jhotdraw.samples.svg.gui` | UNCHANGED | UI contract unchanged. |
 | `SVGApplicationModel` | `org.jhotdraw.samples.svg` | UNCHANGED | Constructor use unchanged. |
+| Other figure classes | multiple drawing packages | BLANK | Not visited because concrete figures do not define grid math. |
 
 ### 6.4 Package Visit Table
 
@@ -367,7 +370,7 @@ Lab review: RefactoringLab met with smell, pattern, strategy, before/after, and 
 
 ### 8.1 Implementation Summary
 
-Actualization incorporated refactoring and tests into existing code. Feature behavior was not expanded. Test and CI support were added around existing snap-to-grid behavior.
+Actualization incorporated refactoring and tests into existing code. Feature behavior was not expanded because selected maintenance goal was behavior preservation. Test and CI support were added around existing snap-to-grid behavior.
 
 ### 8.2 Change Propagation
 
@@ -580,6 +583,12 @@ Helper uses exact original expression `Math.round(value / gridSize) * gridSize`.
 - Tests proving behavior: `GridConstrainerTest` plus `mvn test`.
 - BDD scenario: Given off-grid geometry, When constrained, Then coordinates align to grid.
 
+### 11.6 Process Reflection
+
+Main lesson: useful maintenance work is not only code size. Traceability matters. Here, selected feature led to concept location, concept location limited impact analysis, impact analysis justified one-class production refactoring, and tests plus CI verified behavior preservation.
+
+Tradeoff: compared with a corrective bug fix, this case is more refactoring-focused. That makes safety evidence important. The portfolio therefore emphasizes exact behavior tests and minimal production change.
+
 ---
 
 ## 12. Appendix
@@ -624,19 +633,32 @@ See `evidence/test-results.txt`.
 
 ### 12.3 Extra Diagrams
 
-See `evidence/call-tree.md` and `evidence/impact-analysis-table.md`.
+See `evidence/call-tree.md`, `evidence/impact-analysis-table.md`, `evidence/evidence_index.md`, and `labs/00_lab_coverage_matrix.md`.
 
 ### 12.4 Links / Commits
 
 | Artifact | Link |
 | --- | --- |
 | Repository | `https://github.com/SP-SDU/JHotDraw.git` |
-| Branch | TODO: push branch and add branch URL |
-| Pull request | TODO: create PR after review |
-| Commit before refactor | TODO: commit after review and record hash |
-| Commit after refactor | TODO: commit after review and record hash |
+| Branch | `https://github.com/SP-SDU/JHotDraw/tree/feature/snap-to-grid-portfolio` |
+| Pull request | No PR found by `gh pr list --head feature/snap-to-grid-portfolio --state all --limit 5` |
+| CI workflow run | No workflow run found by `gh run list --branch feature/snap-to-grid-portfolio --limit 5` |
+| CI workflow commit | `7c7a2630` |
+| Refactor and test commit | `4ab72d4b` |
+| Evidence commit | `a752a75c` |
+| PDF commit | `f6d49f67` |
 
-### 12.5 Final Quality Checklist
+### 12.5 References
+
+| Reference | Used For |
+| --- | --- |
+| Rajlich, V. `Software Engineering: The Current Practice`, 2013 | Maintenance phases, concept location, impact analysis marking. |
+| Kerievsky, J. `Refactoring to Patterns`, 2005 | Refactoring and code-smell vocabulary. |
+| Fowler, M. `Continuous Integration`, 2006 | CI rationale. |
+| Fowler, M. `Refactoring`, catalog | Extract Method pattern. |
+| Martin, R. C. `Clean Code`, 2008 | Clean-code naming, small methods, clear responsibility. |
+
+### 12.6 Final Quality Checklist
 
 - [x] Every lab portfolio requirement has section.
 - [x] All known class names are exact.
@@ -651,4 +673,6 @@ See `evidence/call-tree.md` and `evidence/impact-analysis-table.md`.
 - [x] Unit tests documented.
 - [x] BDD Given-When-Then scenarios documented.
 - [x] PDF generated from Markdown after content completion.
-- [ ] TODO: Remote CI URL captured after push.
+- [x] Lab coverage matrix included.
+- [x] Evidence index included.
+- [ ] Remote CI URL captured after PR or push-triggered run.
